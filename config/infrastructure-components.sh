@@ -8,8 +8,12 @@ KUBECTL=$1
 shift
 KUSTOMIZE=$1
 shift
+MKTEMP="mktemp"
+if [ "$(uname)" == "Darwin" ]; then
+  MKTEMP="gmktemp"
+fi 
 
-WORK_DIR=`mktemp -d -p "$(pwd)"`
+WORK_DIR=`$MKTEMP -d -p "$(pwd)"`
 function cleanup {
   rm -rf "$WORK_DIR"
 }
